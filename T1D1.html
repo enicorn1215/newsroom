@@ -11,8 +11,8 @@
     .nav-section { font-size:13px; color:#586069; text-transform:uppercase; letter-spacing:0.08em; }
     .page { max-width:1040px; margin:0 auto; padding:16px 16px 28px; display:grid; grid-template-columns:minmax(0,1.55fr) minmax(200px,0.8fr); gap:16px; align-items:start; }
     article { background:#fff; padding:20px 24px 24px; border-radius:4px; box-shadow:0 1px 2px rgba(15,23,42,0.06); }
-    .ai-banner { display:flex; align-items:center; gap:10px; margin:0 0 16px; padding:12px 14px; border-radius:8px; background:#f8fafc; border:1px solid #cbd5e1; color:#334155; font-size:14px; line-height:1.4; }
-    .ai-banner strong { font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:#0f172a; }
+    .ai-banner { display:flex; align-items:center; gap:10px; margin:0 0 16px; padding:14px 16px; border-radius:8px; background:#f8fafc; border:1px solid #cbd5e1; color:#334155; font-size:16px; font-weight:700; line-height:1.4; }
+    .ai-banner strong { font-size:15px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:#0f172a; }
     h1 { font-size:30px; line-height:1.2; margin:0 0 10px; }
     .meta { font-size:13px; color:#6a737d; margin-bottom:16px; }
     .meta span + span::before { content:"·"; margin:0 6px; color:#d1d5db; }
@@ -106,10 +106,6 @@
               <div class="wt-title">Production walkthrough</div>
               <div class="wt-progress" id="wt-progress">Step 1 of 4</div>
             </div>
-            <div class="wt-controls">
-              <button class="wt-btn" id="wt-prev" type="button">Back</button>
-              <button class="wt-btn primary" id="wt-next" type="button">Next</button>
-            </div>
           </div>
         </div>
       </div>
@@ -150,14 +146,14 @@
       ];
 
       const progressEl = document.getElementById("wt-progress");
-      const prevBtn = document.getElementById("wt-prev");
-      const nextBtn = document.getElementById("wt-next");
-      if (!progressEl || !prevBtn || !nextBtn) return;
+      if (!progressEl) return;
 
       let idx = 0;
       let walkthroughCompleted = false;
       let highlightedEl = null;
       let activeStepEl = null;
+      let autoAdvanceTimer = null;
+      const STEP_DELAY_MS = 1800;
 
       function notifyParent(completed) {
         const payload = {
@@ -193,8 +189,6 @@
       function render() {
         const step = steps[idx];
         progressEl.textContent = `Step ${idx + 1} of ${steps.length}`;
-        prevBtn.disabled = idx === 0;
-        nextBtn.textContent = idx === steps.length - 1 ? "Done" : "Next";
 
         const target = document.querySelector(step.selector);
         if (!target) return;
@@ -210,26 +204,31 @@
         target.scrollIntoView({ behavior: "smooth", block: "center" });
       }
 
-      prevBtn.addEventListener("click", function () {
-        if (idx <= 0) return;
-        idx -= 1;
-        setTimeout(render, 120);
-      });
-
-      nextBtn.addEventListener("click", function () {
-        if (idx < steps.length - 1) {
-          idx += 1;
-          setTimeout(render, 120);
-          return;
-        }
+      function finishWalkthrough() {
+        if (walkthroughCompleted) return;
         walkthroughCompleted = true;
         notifyParent(true);
+        clearTimeout(autoAdvanceTimer);
         clearHighlight();
         clearActiveStep();
-      });
+      }
+
+      function scheduleAutoAdvance() {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+          if (idx < steps.length - 1) {
+            idx += 1;
+            render();
+            scheduleAutoAdvance();
+            return;
+          }
+          finishWalkthrough();
+        }, STEP_DELAY_MS);
+      }
 
       notifyParent(false);
       render();
+      scheduleAutoAdvance();
     })();
   </script>
 </body>
