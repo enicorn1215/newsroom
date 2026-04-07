@@ -4,232 +4,512 @@
   <meta charset="UTF-8" />
   <title>Civic Ledger - New Jersey Limits Cellphone Use in Schools</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; margin:0; background:#f5f6f7; color:#1a1a1a; }
-    header { background:#fff; border-bottom:1px solid #e1e4e8; padding:12px 24px; display:flex; align-items:baseline; justify-content:space-between; }
-    .brand { font-weight:700; letter-spacing:0.06em; text-transform:uppercase; font-size:14px; }
-    .nav-section { font-size:13px; color:#586069; text-transform:uppercase; letter-spacing:0.08em; }
-    .page { max-width:1040px; margin:0 auto; padding:16px 16px 28px; display:grid; grid-template-columns:minmax(0,1.55fr) minmax(200px,0.8fr); gap:16px; align-items:start; }
-    article { background:#fff; padding:20px 24px 24px; border-radius:4px; box-shadow:0 1px 2px rgba(15,23,42,0.06); }
-    .ai-banner { display:flex; align-items:center; gap:10px; margin:0 0 16px; padding:14px 16px; border-radius:8px; background:#f8fafc; border:1px solid #cbd5e1; color:#334155; font-size:16px; font-weight:700; line-height:1.4; }
-    .ai-banner strong { font-size:15px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:#0f172a; }
-    h1 { font-size:30px; line-height:1.2; margin:0 0 10px; }
-    .meta { font-size:13px; color:#6a737d; margin-bottom:16px; }
-    .meta span + span::before { content:"·"; margin:0 6px; color:#d1d5db; }
-    .hero { margin:10px auto 14px; max-width:320px; }
-    .hero img { width:100%; display:block; border-radius:4px; object-fit:contain; }
-    p { font-size:15px; line-height:1.5; margin:0 0 10px; }
-    p.lede { font-weight:500; }
-    .da-box { margin-top:16px; padding:12px 14px; border-radius:4px; background:#fef2f2; border-left:3px solid #b91c1c; font-size:14px; }
-    .da-box h2 { margin:0 0 6px; font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:#b91c1c; }
-    .da-box p { margin:0 0 8px; font-size:14px; }
-    aside { font-size:14px; }
-    .about-box { background:#fff; border-radius:4px; padding:12px 14px; box-shadow:0 1px 2px rgba(15,23,42,0.04); border-left:3px solid #2563eb; position:sticky; top:12px; }
-    .about-box h2 { font-size:14px; text-transform:uppercase; letter-spacing:0.1em; margin:0 0 6px; color:#374151; }
-    .about-box p { font-size:13px; line-height:1.3; margin:0 0 6px; color:#4b5563; }
-    .about-box ol.process-list { margin:0; padding-left:22px; }
-    .process-step { margin:0 0 8px; padding:8px 10px; border-radius:8px; border:1px solid transparent; transition:background 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
-    .process-step.active { background:#eff6ff; border-color:#93c5fd; box-shadow:0 0 0 2px rgba(147,197,253,0.2); }
-    .process-step.active::marker { color:#2563eb; font-weight:700; }
-    .walkthrough { margin-top:12px; padding-top:12px; border-top:1px solid #eef2f7; }
-    .wt-row { display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
-    .wt-title { font-size:12px; color:#374151; letter-spacing:0.06em; text-transform:uppercase; }
-    .wt-progress { font-size:12px; color:#6b7280; }
-    .wt-controls { display:flex; gap:8px; }
-    .wt-btn { appearance:none; border:1px solid #d1d5db; background:#fff; color:#111827; padding:7px 10px; border-radius:8px; font-size:12px; cursor:pointer; }
-    .wt-btn:disabled { cursor:not-allowed; opacity:0.5; }
-    .wt-btn.primary { border-color:#2563eb; color:#2563eb; }
-    .wt-badge { display:inline-block; margin-top:8px; font-size:11px; padding:3px 8px; border-radius:999px; background:rgba(37,99,235,0.18); color:#bfdbfe; border:1px solid rgba(147,197,253,0.35); }
-    .wt-highlight { position:relative; outline:3px solid rgba(37,99,235,0.55); outline-offset:6px; border-radius:6px; animation:wtPulse 900ms ease-in-out infinite alternate; }
-    @keyframes wtPulse { from { outline-color: rgba(37,99,235,0.35); } to { outline-color: rgba(37,99,235,0.75); } }
-    @media (prefers-reduced-motion: reduce){
-      .wt-highlight { animation:none; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1714;
+      --ink-2: #3d3a36;
+      --ink-3: #6b6760;
+      --ink-4: #9e9b96;
+      --rule: #e2ddd8;
+      --bg: #f7f4ef;
+      --surface: #ffffff;
+      --blue: #1a4fa0;
+      --blue-light: #ddeaf8;
+      --blue-mid: #4a7fc1;
+      --red: #9b1c1c;
+      --red-light: #fee2e2;
     }
-    .sidebar-module { margin-top:16px; background:#fff; border-radius:4px; padding:14px 16px; box-shadow:0 1px 2px rgba(15,23,42,0.04); }
-    .sidebar-module h3 { font-size:14px; margin:0 0 8px; }
-    .sidebar-module ul { list-style:none; padding:0; margin:0; font-size:13px; }
-    .sidebar-module li + li { margin-top:4px; }
-    .sidebar-module a { color:#2563eb; text-decoration:none; }
-    .sidebar-module a:hover { text-decoration:underline; }
-    @media (max-width:640px){ .page{grid-template-columns:1fr;} header{flex-direction:column; align-items:flex-start; gap:4px;} }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 2px solid var(--ink);
+      padding: 0 32px;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+    .brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .header-date {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--ink-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+
+    /* ── Page layout ── */
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(260px, 0.75fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ── Article ── */
+    article {
+      background: var(--surface);
+      border: 0.5px solid var(--rule);
+      border-radius: 2px;
+    }
+
+    .ai-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--blue-light);
+      border-bottom: 0.5px solid #b3cee8;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--blue);
+    }
+    .ai-banner-badge {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: #fff;
+      color: var(--blue);
+      border: 0.5px solid #93bde0;
+      padding: 3px 8px;
+      border-radius: 3px;
+      white-space: nowrap;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .ai-banner p { margin: 0; line-height: 1.4; color: #1e3a6e; }
+    .ai-banner a { color: var(--blue); font-weight: 500; }
+
+    .article-body { padding: 24px 28px 32px; }
+
+    .section-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 34px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .byline-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 0;
+      border-top: 0.5px solid var(--rule);
+      border-bottom: 0.5px solid var(--rule);
+      margin-bottom: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+    .byline-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      border: 0.5px solid #93bde0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+    .byline-name { font-weight: 500; color: var(--ink-2); font-size: 13px; }
+    .byline-role { color: var(--ink-4); }
+    .byline-sep { color: var(--rule); }
+    .byline-date { margin-left: auto; }
+
+
+
+    p.lede {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    p {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink-2);
+      margin-bottom: 12px;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .da-box {
+      margin-top: 20px;
+      padding: 14px 16px;
+      background: var(--red-light);
+      border-left: 3px solid var(--red);
+      border-radius: 0 2px 2px 0;
+    }
+    .da-box-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .da-box p {
+      font-size: 14px;
+      color: #4a0e0e;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ── Sidebar ── */
+    aside { display: flex; flex-direction: column; gap: 16px; }
+
+    .about-box {
+      background: var(--surface);
+      border: 1.5px solid var(--blue-mid);
+      border-radius: 4px;
+      position: sticky;
+      top: 16px;
+      font-family: 'DM Sans', sans-serif;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(26, 79, 160, 0.1);
+    }
+
+    .about-header {
+      padding: 12px 16px 10px;
+      border-bottom: 0.5px solid var(--rule);
+    }
+    .about-header h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-3);
+      margin-bottom: 4px;
+    }
+    .about-header p {
+      font-size: 12px;
+      color: var(--ink-3);
+      line-height: 1.4;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+    }
+
+    .steps-list { padding: 12px 14px; }
+
+    .step {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-bottom: 1px;
+    }
+    .step-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-human .step-icon {
+      background: var(--blue-light);
+      color: var(--blue);
+      border: 0.5px solid #93bde0;
+      font-size: 14px;
+    }
+    .step-ai .step-icon {
+      background: var(--bg);
+      color: var(--ink-3);
+      border: 0.5px solid var(--rule);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .step-content { flex: 1; min-width: 0; }
+    .step-label {
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 2px;
+    }
+    .step-human .step-label { color: var(--blue); }
+    .step-ai .step-label { color: var(--ink-4); }
+    .step-body {
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--ink-3);
+    }
+
+    /* Vertical connector line between steps */
+    .step-connector {
+      display: flex;
+      justify-content: flex-start;
+      padding-left: 21px;
+      margin: 0 10px;
+    }
+    .step-connector-line {
+      width: 0.5px;
+      height: 10px;
+      background: var(--rule);
+    }
+
+    .pipeline-divider {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 10px;
+    }
+    .pipeline-line { flex: 1; height: 0.5px; background: var(--rule); }
+    .pipeline-label {
+      font-size: 11px;
+      color: var(--ink-3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .steps-legend {
+      display: flex;
+      gap: 14px;
+      padding: 9px 14px;
+      border-top: 0.5px solid var(--rule);
+      background: var(--bg);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--ink-3);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .legend-dot-human { background: var(--blue-light); border: 0.5px solid #93bde0; }
+    .legend-dot-ai { background: var(--bg); border: 0.5px solid var(--rule); }
+
+    /* ── Related module ── */
+    .sidebar-module {
+      background: var(--surface);
+      border: 0.5px solid var(--rule);
+      border-radius: 2px;
+      padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .sidebar-module h3 {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-3);
+      margin-bottom: 10px;
+    }
+    .sidebar-module ul { list-style: none; }
+    .sidebar-module li {
+      padding: 7px 0;
+      border-bottom: 0.5px solid var(--rule);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .sidebar-module li:last-child { border-bottom: none; padding-bottom: 0; }
+    .sidebar-module a { color: var(--ink-2); text-decoration: none; }
+    .sidebar-module a:hover { color: var(--blue); }
+    .sidebar-module .tag {
+      display: inline-block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-4);
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 680px) {
+      .page { grid-template-columns: 1fr; }
+      header { padding: 0 16px; }
+      .article-body { padding: 18px 18px 24px; }
+      h1 { font-size: 26px; }
+      .about-box { position: static; }
+    }
   </style>
 </head>
 <body>
-  <header>
+
+<header>
+  <div class="header-top">
     <div class="brand">Civic Ledger</div>
-    <div class="nav-section">Technology Policy</div>
-  </header>
+  </div>
+</header>
 
-  <main class="page">
-    <article id="main-article">
-      <div class="ai-banner" role="note" aria-label="AI-generated disclosure">
-        <strong>Disclosure</strong>
-        <span>This article was created using AI.</span>
-      </div>
+<main class="page">
+
+  <article>
+
+    <div class="ai-banner" role="note" aria-label="AI disclosure">
+      <span class="ai-banner-badge">Disclosure</span>
+      <p>This article was produced with the assistance of AI.</p>
+    </div>
+
+    <div class="article-body">
+      <div class="section-tag">Education Policy</div>
       <h1>New Jersey Limits Cellphone Use in Schools</h1>
-      <div class="meta">
-        <span>Updated March 12, 2026 · 9:24 a.m.</span>
-        <span>Education Policy</span>
+
+      <div class="byline-row">
+        <div class="byline-avatar">SR</div>
+        <div>
+          <div class="byline-name">Sarah Reyes</div>
+          <div class="byline-role">Education Editor</div>
+        </div>
+        <span class="byline-date">Updated March 12, 2026 · 9:24 a.m.</span>
       </div>
 
-      <div class="hero" id="hero">
-        <img src="pic.jpg" alt="Students at a New Jersey high school walk through the hallway with their phones in secure pouches." />
-      </div>
+      <p class="lede">
+        New Jersey has become the latest state to limit students' cellphone use during the school day.
+      </p>
 
-      <p class="lede" id="lede">
-        New Jersey has become the latest state to limit students’ cellphone use during the school day.
+      <p>
+        Governor Phil Murphy recently signed legislation requiring schools to restrict the non-academic use of smartphones and other internet-connected devices beginning in the 2026–2027 school year. Murphy said the policy is intended to reduce distractions and help students stay focused in class.
       </p>
-      <p class="story-para">
-        Governor Phil Murphy recently signed legislation requiring schools to restrict the non-academic use of smartphones and other internet-connected devices beginning in the 2026-2027 school year, saying the policy is meant to reduce distractions and help students stay focused in class.
-      </p>
-      <div class="da-box" id="da-box">
-        <h2>Opposing View from Devil’s Advocate AI Agent 🤖</h2>
+
+
+      <div class="da-box">
+        <div class="da-box-label">Opposing perspective — Devil's Advocate AI Agent 🤖</div>
         <p>
-          However, some education researchers question whether phone bans alone significantly improve learning outcomes. They argue that classroom engagement often depends on teaching practices and school resources, and that enforcing phone bans may also create practical challenges for schools.
+          However, some education researchers question whether phone bans alone significantly improve learning outcomes. They argue that classroom engagement often depends more on teaching practices and school resources, and that enforcing blanket bans may create practical challenges — particularly for students who rely on devices for accessibility needs or emergency communication.
         </p>
       </div>
-    </article>
+    </div>
 
-    <aside>
-      <div class="about-box" id="about-box">
+  </article>
+
+  <aside>
+
+    <div class="about-box" id="about-box">
+
+      <div class="about-header">
         <h2>About this article</h2>
-        <p>How this article was created using AI:</p>
-        <ol class="process-list">
-          <li class="process-step" id="step-1">A research AI 🤖 gathered background information and prepared factual summaries about New Jersey’s cellphone policy.</li>
-          <li class="process-step" id="step-2">A writing AI 🤖 used this information to draft different sections of the article, including the introduction and supporting paragraphs.</li>
-          <li class="process-step" id="step-3">An image-generation AI 🤖 created the lead photo based on the article’s content.</li>
-          <li class="process-step" id="step-4">A Devil's Advocate AI 🤖 added opposing viewpoints to ensure different perspectives were considered.</li>
-        </ol>
-        <div class="walkthrough" aria-label="How this article was produced">
-          <div class="wt-row">
-            <div>
-              <div class="wt-title">Production walkthrough</div>
-              <div class="wt-progress" id="wt-progress">Step 1 of 4</div>
-            </div>
-          </div>
-        </div>
+        <p>How this article was produced</p>
       </div>
 
-    </aside>
-  </main>
-  <script>
-    (function () {
-      const steps = [
-        {
-          selector: "#main-article",
-          sidebarSelector: "#step-1",
-          title: "1. Research AI gathered information",
-          body: "A research AI 🤖 gathered background information and prepared factual summaries about New Jersey’s cellphone policy.",
-          badge: "🤖 AI-led"
-        },
-        {
-          selector: "#lede",
-          sidebarSelector: "#step-2",
-          title: "2. Writing AI drafted the article",
-          body: "A writing AI 🤖 used this information to draft different sections of the article, including the introduction and supporting paragraphs.",
-          badge: "🤖 AI-led"
-        },
-        {
-          selector: "#hero",
-          sidebarSelector: "#step-3",
-          title: "3. Image-generation AI created the photo",
-          body: "An image-generation AI 🤖 created the lead photo based on the article’s content.",
-          badge: "🤖 AI-led"
-        },
-        {
-          selector: "#da-box",
-          sidebarSelector: "#step-4",
-          title: "4. Devil's Advocate AI added opposing viewpoints",
-          body: "A Devil's Advocate AI 🤖 added opposing viewpoints to ensure different perspectives were considered.",
-          badge: "🤖 AI-led"
-        }
-      ];
+      <div class="steps-list">
 
-      const progressEl = document.getElementById("wt-progress");
-      if (!progressEl) return;
+        <div class="step step-human">
+          <div class="step-icon">&#10003;</div>
+          <div class="step-content">
+            <div class="step-label">Human editor — assigned</div>
+            <div class="step-body">Sarah Reyes identified the story, set its editorial scope, and defined accuracy standards before any AI was involved.</div>
+          </div>
+        </div>
 
-      let idx = 0;
-      let walkthroughCompleted = false;
-      let highlightedEl = null;
-      let activeStepEl = null;
-      let autoAdvanceTimer = null;
-      const STEP_DELAY_MS = 1800;
+        <div class="step-connector"><div class="step-connector-line"></div></div>
 
-      function notifyParent(completed) {
-        const payload = {
-          source: "jmis-media-walkthrough",
-          condition: "condition4",
-          completed: completed
-        };
+        <div class="pipeline-divider">
+          <div class="pipeline-line"></div>
+          <div class="pipeline-label">Step-by-step AI agent workflow</div>
+          <div class="pipeline-line"></div>
+        </div>
 
-        try {
-          window.parent.postMessage(payload, "*");
-        } catch (err) {}
+        <div class="step-connector"><div class="step-connector-line"></div></div>
 
-        try {
-          const nextButton = window.parent.document.getElementById("NextButton");
-          if (nextButton) {
-            nextButton.disabled = !completed;
-            nextButton.style.opacity = completed ? "1" : "0.5";
-            nextButton.style.pointerEvents = completed ? "auto" : "none";
-          }
-        } catch (err) {}
-      }
+        <div class="step step-ai">
+          <div class="step-icon">1</div>
+          <div class="step-content">
+            <div class="step-label">Research AI agent 🤖</div>
+            <div class="step-body">Helped gather background information and prepare summaries based on publicly available sources.</div>
+          </div>
+        </div>
 
-      function clearHighlight() {
-        if (highlightedEl) highlightedEl.classList.remove("wt-highlight");
-        highlightedEl = null;
-      }
+        <div class="step-connector"><div class="step-connector-line"></div></div>
 
-      function clearActiveStep() {
-        if (activeStepEl) activeStepEl.classList.remove("active");
-        activeStepEl = null;
-      }
+        <div class="step step-ai">
+          <div class="step-icon">2</div>
+          <div class="step-content">
+            <div class="step-label">Writing AI agent 🤖</div>
+            <div class="step-body">Drafted an initial version of the article using the research summaries and the editor’s guidelines.</div>
+          </div>
+        </div>
 
-      function render() {
-        const step = steps[idx];
-        progressEl.textContent = `Step ${idx + 1} of ${steps.length}`;
+        <div class="step-connector"><div class="step-connector-line"></div></div>
 
-        const target = document.querySelector(step.selector);
-        if (!target) return;
+        <div class="step step-ai">
+          <div class="step-icon">3</div>
+          <div class="step-content">
+            <div class="step-label">Devil's Advocate AI Agent 🤖</div>
+            <div class="step-body">Reviewed the draft to identify missing perspectives, possible bias, and areas that needed further review.</div>
+          </div>
+        </div>
 
-        clearHighlight();
-        highlightedEl = target;
-        highlightedEl.classList.add("wt-highlight");
+        <div class="step-connector"><div class="step-connector-line"></div></div>
 
-        clearActiveStep();
-        activeStepEl = document.querySelector(step.sidebarSelector);
-        if (activeStepEl) activeStepEl.classList.add("active");
+        <div class="pipeline-divider">
+          <div class="pipeline-line"></div>
+          <div class="pipeline-line"></div>
+        </div>
 
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
+        <div class="step-connector"><div class="step-connector-line"></div></div>
 
-      function finishWalkthrough() {
-        if (walkthroughCompleted) return;
-        walkthroughCompleted = true;
-        notifyParent(true);
-        clearTimeout(autoAdvanceTimer);
-        clearHighlight();
-        clearActiveStep();
-      }
+        <div class="step step-human">
+          <div class="step-icon">&#10003;</div>
+          <div class="step-content">
+            <div class="step-label">Human editor 👤 — approved</div>
+            <div class="step-body">Sarah Reyes reviewed the full output, verified key claims, and made the final decision to publish.</div>
+          </div>
+        </div>
 
-      function scheduleAutoAdvance() {
-        clearTimeout(autoAdvanceTimer);
-        autoAdvanceTimer = setTimeout(function () {
-          if (idx < steps.length - 1) {
-            idx += 1;
-            render();
-            scheduleAutoAdvance();
-            return;
-          }
-          finishWalkthrough();
-        }, STEP_DELAY_MS);
-      }
+      </div>
 
-      notifyParent(false);
-      render();
-      scheduleAutoAdvance();
-    })();
-  </script>
+
+    </div>
+
+  </aside>
+
+</main>
+
 </body>
 </html>

@@ -4,63 +4,254 @@
   <meta charset="UTF-8" />
   <title>Civic Ledger - New Jersey Limits Cellphone Use in Schools</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; margin:0; background:#f5f6f7; color:#1a1a1a; }
-    header { background:#fff; border-bottom:1px solid #e1e4e8; padding:12px 24px; display:flex; align-items:baseline; justify-content:space-between; }
-    .brand { font-weight:700; letter-spacing:0.06em; text-transform:uppercase; font-size:14px; }
-    .nav-section { font-size:13px; color:#586069; text-transform:uppercase; letter-spacing:0.08em; }
-    .page { max-width:920px; margin:0 auto; padding:16px 16px 28px; }
-    article { background:#fff; padding:20px 24px 24px; border-radius:4px; box-shadow:0 1px 2px rgba(15,23,42,0.06); }
-    .ai-banner { display:flex; align-items:center; gap:10px; margin:0 0 16px; padding:14px 16px; border-radius:8px; background:#f8fafc; border:1px solid #cbd5e1; color:#334155; font-size:16px; font-weight:700; line-height:1.4; }
-    .ai-banner strong { font-size:15px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:#0f172a; }
-    h1 { font-size:30px; line-height:1.2; margin:0 0 10px; }
-    .meta { font-size:13px; color:#6a737d; margin-bottom:16px; }
-    .meta span + span::before { content:"·"; margin:0 6px; color:#d1d5db; }
-    .hero { margin:10px auto 14px; max-width:320px; }
-    .hero img { width:100%; display:block; border-radius:4px; object-fit:contain; }
-    p { font-size:15px; line-height:1.5; margin:0 0 10px; }
-    p.lede { font-weight:500; }
-    .da-box { margin-top:16px; padding:12px 14px; border-radius:4px; background:#fef2f2; border-left:3px solid #b91c1c; font-size:14px; }
-    .da-box h2 { margin:0 0 6px; font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:#b91c1c; }
-    .da-box p { margin:0 0 8px; font-size:14px; }
-    @media (max-width:768px){ header{flex-direction:column; align-items:flex-start; gap:4px;} }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1714;
+      --ink-2: #3d3a36;
+      --ink-3: #6b6760;
+      --ink-4: #9e9b96;
+      --rule: #e2ddd8;
+      --bg: #f7f4ef;
+      --surface: #ffffff;
+      --blue: #1a4fa0;
+      --blue-light: #ddeaf8;
+      --blue-mid: #4a7fc1;
+      --red: #9b1c1c;
+      --red-light: #fee2e2;
+    }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 2px solid var(--ink);
+      padding: 0 32px;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+    .brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .header-date {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--ink-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+
+    /* ── Page layout ── */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+    }
+
+    /* ── Article ── */
+    article {
+      background: var(--surface);
+      border: 0.5px solid var(--rule);
+      border-radius: 2px;
+    }
+
+    .ai-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--blue-light);
+      border-bottom: 0.5px solid #b3cee8;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--blue);
+    }
+    .ai-banner-badge {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: #fff;
+      color: var(--blue);
+      border: 0.5px solid #93bde0;
+      padding: 3px 8px;
+      border-radius: 3px;
+      white-space: nowrap;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .ai-banner p { margin: 0; line-height: 1.4; color: #1e3a6e; }
+    .ai-banner a { color: var(--blue); font-weight: 500; }
+
+    .article-body { padding: 24px 28px 32px; }
+
+    .section-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 34px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .byline-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 0;
+      border-top: 0.5px solid var(--rule);
+      border-bottom: 0.5px solid var(--rule);
+      margin-bottom: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+    .byline-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      border: 0.5px solid #93bde0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+    .byline-name { font-weight: 500; color: var(--ink-2); font-size: 13px; }
+    .byline-role { color: var(--ink-4); }
+    .byline-sep { color: var(--rule); }
+    .byline-date { margin-left: auto; }
+
+
+
+    p.lede {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    p {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink-2);
+      margin-bottom: 12px;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .da-box {
+      margin-top: 20px;
+      padding: 14px 16px;
+      background: var(--red-light);
+      border-left: 3px solid var(--red);
+      border-radius: 0 2px 2px 0;
+    }
+    .da-box-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .da-box p {
+      font-size: 14px;
+      color: #4a0e0e;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 680px) {
+      header { padding: 0 16px; }
+      .article-body { padding: 18px 18px 24px; }
+      h1 { font-size: 26px; }
+    }
   </style>
 </head>
 <body>
-  <header>
+
+<header>
+  <div class="header-top">
     <div class="brand">Civic Ledger</div>
-    <div class="nav-section">Technology Policy</div>
-  </header>
+  </div>
+</header>
 
-  <main class="page">
-    <article>
-      <div class="ai-banner" role="note" aria-label="AI-generated disclosure">
-        <strong>Disclosure</strong>
-        <span>This article was created using AI.</span>
-      </div>
+<main class="page">
+
+  <article>
+
+    <div class="ai-banner" role="note" aria-label="AI disclosure">
+      <span class="ai-banner-badge">Disclosure</span>
+      <p>This article was produced with the assistance of AI.</p>
+    </div>
+
+    <div class="article-body">
+      <div class="section-tag">Education Policy</div>
       <h1>New Jersey Limits Cellphone Use in Schools</h1>
-      <div class="meta">
-        <span>Updated March 12, 2026 · 9:24 a.m.</span>
-        <span>Education Policy</span>
-      </div>
 
-      <div class="hero">
-        <img src="pic.jpg" alt="Students at a New Jersey high school walk through the hallway with their phones in secure pouches." />
+      <div class="byline-row">
+        <div class="byline-avatar">SR</div>
+        <div>
+          <div class="byline-name">Sarah Reyes</div>
+          <div class="byline-role">Education Editor</div>
+        </div>
+        <span class="byline-date">Updated March 12, 2026 · 9:24 a.m.</span>
       </div>
 
       <p class="lede">
-        New Jersey has become the latest state to limit students’ cellphone use during the school day.
+        New Jersey has become the latest state to limit students' cellphone use during the school day.
       </p>
+
       <p>
-        Governor Phil Murphy recently signed legislation requiring schools to restrict the non-academic use of smartphones and other internet-connected devices beginning in the 2026-2027 school year, saying the policy is meant to reduce distractions and help students stay focused in class.
+        Governor Phil Murphy recently signed legislation requiring schools to restrict the non-academic use of smartphones and other internet-connected devices beginning in the 2026–2027 school year. Murphy said the policy is intended to reduce distractions and help students stay focused in class.
       </p>
+
+
       <div class="da-box">
-        <h2>Opposing View from Devil’s Advocate AI Agent 🤖</h2>
+        <div class="da-box-label">Opposing perspective — Devil's Advocate AI Agent 🤖</div>
         <p>
-          However, some education researchers question whether phone bans alone significantly improve learning outcomes. They argue that classroom engagement often depends on teaching practices and school resources, and that enforcing phone bans may also create practical challenges for schools.
+          However, some education researchers question whether phone bans alone significantly improve learning outcomes. They argue that classroom engagement often depends more on teaching practices and school resources, and that enforcing blanket bans may create practical challenges — particularly for students who rely on devices for accessibility needs or emergency communication.
         </p>
       </div>
-    </article>
-  </main>
+    </div>
+
+  </article>
+
+</main>
+
 </body>
 </html>
