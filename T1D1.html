@@ -370,6 +370,36 @@
       margin-bottom: 2px;
     }
 
+    /* ── Sidebar entrance animation ── */
+    .about-box {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .about-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .steps-list > * {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .steps-list > .lit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step.lit .step-icon {
+      animation: icon-pulse 0.4s ease;
+    }
+    @keyframes icon-pulse {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.25); }
+      100% { transform: scale(1); }
+    }
+
     @media (max-width: 680px) {
       .page { grid-template-columns: 1fr; }
       header { padding: 0 16px; }
@@ -509,6 +539,23 @@
   </aside>
 
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var box = document.querySelector('.about-box');
+  var items = box.querySelectorAll('.steps-list > *');
+
+  setTimeout(function () {
+    box.classList.add('visible');
+  }, 300);
+
+  items.forEach(function (el, i) {
+    setTimeout(function () {
+      el.classList.add('lit');
+    }, 600 + i * 180);
+  });
+});
+</script>
 
 </body>
 </html>
