@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Label Social Media Posts (Open / Full Secure Verification)</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --primary: #246bff;
+      --primary-soft: #eef3ff;
+      --text-main: #111827;
+      --text-subtle: #6b7280;
+      --border-soft: #e5e7eb;
+      --danger: #dc2626;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+
+    body {
+      background: radial-gradient(circle at top left, #eef2ff, #f9fafb);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 900px;
+      padding: 32px 20px;
+    }
+
+    .progress {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: var(--text-subtle);
+      gap: 12px;
+    }
+
+    .progress-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .progress-bar {
+      position: relative;
+      flex: 1;
+      height: 6px;
+      margin-left: 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      overflow: hidden;
+    }
+
+    .progress-value {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2563eb, #4f46e5);
+      transition: width 240ms ease-out;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+    }
+
+    .feed-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .author-name {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .verified-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .author-meta {
+      font-size: 12px;
+      color: var(--text-subtle);
+    }
+
+    .post-text {
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .link-preview {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      background-color: #f9fafb;
+    }
+
+    .link-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .link-meta {
+      padding: 10px 12px 12px;
+    }
+
+    .link-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-subtle);
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .link-url {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .link-desc {
+      font-size: 12px;
+      color: var(--text-subtle);
+    }
+
+    .task-panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    .task-header {
+      margin-bottom: 16px;
+    }
+
+    .task-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .task-subtitle {
+      font-size: 13px;
+      color: var(--text-subtle);
+    }
+
+    .labels {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .label-option {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      padding: 9px 12px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      background: #ffffff;
+      transition: all 140ms ease-out;
+    }
+
+    .label-option span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .label-option.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.14);
+    }
+
+    .label-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .label-option.selected .label-tag {
+      background: rgba(37, 99, 235, 0.1);
+      color: #1d4ed8;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      padding: 9px 16px;
+      cursor: pointer;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.45;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-subtle);
+    }
+
+    .step-indicator {
+      font-size: 12px;
+      color: var(--text-subtle);
+    }
+
+    .complete-state {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .complete-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .complete-subtitle {
+      font-size: 14px;
+      color: var(--text-subtle);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .modal-message {
+      font-size: 15px;
+      color: var(--text-subtle);
+      margin-bottom: 16px;
+    }
+
+    .decision-options {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .decision-option {
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 14px;
+      border: 1px solid var(--border-soft);
+      background: #f9fafb;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 140ms ease-out, border-color 140ms ease-out;
+    }
+
+    .decision-option.primary {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: #1d4ed8;
+    }
+
+    .decision-option .check-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid #d1d5db;
+    }
+
+    .decision-option.primary .check-icon {
+      border-color: transparent;
+      background:
+        radial-gradient(circle at center, white 0 46%, transparent 47% 100%),
+        conic-gradient(from 0deg, #2563eb 0 100%);
+    }
+
+    .verification-status {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-subtle);
+    }
+
+    .verification-bar {
+      position: relative;
+      margin-top: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      overflow: hidden;
+    }
+
+    .verification-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2563eb, #4f46e5);
+      transition: width linear;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+
+    .modal-footer .btn-primary {
+      padding-inline: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="progress">
+      <div class="progress-text">
+        <div>Assign labels to the post</div>
+        <div class="step-indicator" id="stepLabel"></div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-value" id="progressValue"></div>
+      </div>
+    </div>
+
+    <div class="layout" id="mainLayout">
+      <article class="card">
+        <header class="feed-header">
+          <img id="avatar" class="avatar" src="" alt="Author avatar" />
+          <div>
+            <div class="author-name">
+              <span id="authorName"></span>
+              <svg id="verifiedIcon" class="verified-icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="11" fill="#1d9bf0"/>
+                <path d="M9.5 14.25L6.75 11.5L7.81 10.44L9.5 12.13L14.19 7.44L15.25 8.5L9.5 14.25Z" fill="white"/>
+              </svg>
+            </div>
+            <div class="author-meta" id="authorMeta"></div>
+          </div>
+        </header>
+
+        <p class="post-text" id="postText"></p>
+
+        <section class="link-preview">
+          <div class="link-meta">
+            <div class="link-label">Image link</div>
+            <a id="linkAnchor" class="link-url" href="#" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+        </section>
+      </article>
+
+      <aside class="card task-panel">
+        <div>
+          <div class="task-header">
+            <div class="task-title">Assign a category</div>
+            <div class="task-subtitle">
+              Choose the topic category that best matches the content (both the text and the image) of this post.
+            </div>
+          </div>
+
+          <div class="labels" id="labelsContainer"></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" type="button" id="nextButton" disabled>
+            Next post
+          </button>
+        </div>
+      </aside>
+    </div>
+
+    <div class="card complete-state" id="completeState" style="display: none;">
+      <div class="complete-title">Thank you for reviewing these posts</div>
+      <div class="complete-subtitle">
+        You've finished labeling all ten posts. Please continue to answer a short follow-up questionnaire.
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-title" id="modalTitle">Sorry, we've encountered an issue</div>
+      <div class="modal-message">
+        We couldn't verify if the link to the image is safe. Please bear with us for a moment while we check it. Before you proceed, how would you like to handle this external link?
+      </div>
+
+      <div class="decision-options">
+        <button class="decision-option" type="button" data-decision="open">
+          <span>Open Link Now</span>
+          <span class="check-icon" aria-hidden="true"></span>
+        </button>
+        <button class="decision-option" type="button" data-decision="full">
+          <span>Full Secure Verification (~ 20 seconds)</span>
+          <span class="check-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div id="verificationStatus" class="verification-status" style="display: none;">
+        Verifying link...
+        <div class="verification-bar">
+          <div class="verification-bar-fill" id="verificationBarFill"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" id="continueButton">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const posts = [
+      {
+        author: "Stephanie Martin",
+        handle: "@stephmartin",
+        timeAgo: "12 min ago",
+        avatar: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "Found this earlier and thought it was kind of interesting.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/A7K3P9Q2"
+      },
+      {
+        author: "David Chen",
+        handle: "@davidchen",
+        timeAgo: "23 min ago",
+        avatar: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "Scrolling through my feed and this popped up again.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/4MZ8X1B6"
+      },
+      {
+        author: "Emily Rose",
+        handle: "@emilyrose",
+        timeAgo: "1 hr ago",
+        avatar: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "Came across this and figured I'd share it here.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/Q2R7N5C8"
+      },
+      {
+        author: "Marcus Lee",
+        handle: "@marcuslee",
+        timeAgo: "2 hrs ago",
+        avatar: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "Has anyone else seen this? Just found it online.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/9T4L8W0E"
+      },
+      {
+        author: "Rachel Kim",
+        handle: "@rachelkim",
+        timeAgo: "4 hrs ago",
+        avatar: "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "This has been floating around all day on my timeline.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/H6Y3D2K9"
+      },
+      {
+        author: "Lauren Hall",
+        handle: "@laurenhall",
+        timeAgo: "5 hrs ago",
+        avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "Just saw this floating around. Thought it might be useful.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/1P8V5S7J"
+      },
+      {
+        author: "Jason Park",
+        handle: "@jasonpark",
+        timeAgo: "6 hrs ago",
+        avatar: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "Been seeing this everywhere lately. Sharing it just in case.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/Z3F9U6A2"
+      },
+      {
+        author: "Tyler Brooks",
+        handle: "@tylerbrooks",
+        timeAgo: "8 hrs ago",
+        avatar: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "Dropping this here for those who might be interested.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/8C1X7R4M"
+      },
+      {
+        author: "Megan Torres",
+        handle: "@megantorres",
+        timeAgo: "10 hrs ago",
+        avatar: "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "Came across this while browsing. Check it out.",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/N5B2Q8L3"
+      },
+      {
+        author: "Kevin Wright",
+        handle: "@kevinwright",
+        timeAgo: "12 hrs ago",
+        avatar: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=200",
+        text: "This link has been going around. Worth a look maybe?",
+        linkUrl: "",
+        linkDesc: "",
+        linkImage: "https://tinyurl.com/6W0E9T4H"
+      }
+    ];
+
+    const labels = [
+      { id: "food", text: "Food", tag: "Recipes, restaurants, cooking" },
+      { id: "sports", text: "Sports", tag: "Games, teams, athletes" },
+      { id: "politics", text: "Politics", tag: "Government, parties, elections" },
+      { id: "entertainment", text: "Entertainment", tag: "TV, movies, music, celebs" }
+    ];
+
+    let currentIndex = 0;
+    let selectedLabel = null;
+    let modalDecision = null;
+    let isVerifying = false;
+    let hasVerified = false;
+    let verificationTimer = null;
+
+    const taskState = {
+      post1_label: null,
+      post2_label: null,
+      post3_label: null,
+      post4_label: null,
+      post5_label: null,
+      post6_label: null,
+      post7_label: null,
+      post8_label: null,
+      post9_label: null,
+      post10_label: null,
+      post4_popup_choice: null,
+      post4_verified: null,
+      post9_popup_choice: null,
+      post9_verified: null,
+      post1_link_clicked: false,
+      post2_link_clicked: false,
+      post3_link_clicked: false,
+      post4_link_clicked: false,
+      post5_link_clicked: false,
+      post6_link_clicked: false,
+      post7_link_clicked: false,
+      post8_link_clicked: false,
+      post9_link_clicked: false,
+      post10_link_clicked: false
+    };
+
+    const QUALTRICS_TARGET_ORIGIN = "*";
+    const defaultModalMessage = "We couldn't verify if the link to the image is safe. Please bear with us for a moment while we check it. Before you proceed, how would you like to handle this external link?";
+
+    function postToQualtrics(extra = {}) {
+      try {
+        if (!window.parent || window.parent === window) return;
+        window.parent.postMessage(
+          {
+            type: "LABEL_TASK_UPDATE",
+            post1_label: taskState.post1_label,
+            post2_label: taskState.post2_label,
+            post3_label: taskState.post3_label,
+            post4_label: taskState.post4_label,
+            post5_label: taskState.post5_label,
+            post6_label: taskState.post6_label,
+            post7_label: taskState.post7_label,
+            post8_label: taskState.post8_label,
+            post9_label: taskState.post9_label,
+            post10_label: taskState.post10_label,
+            post4_popup_choice: taskState.post4_popup_choice,
+            post4_verified: taskState.post4_verified,
+            post9_popup_choice: taskState.post9_popup_choice,
+            post9_verified: taskState.post9_verified,
+            post1_link_clicked: taskState.post1_link_clicked,
+            post2_link_clicked: taskState.post2_link_clicked,
+            post3_link_clicked: taskState.post3_link_clicked,
+            post4_link_clicked: taskState.post4_link_clicked,
+            post5_link_clicked: taskState.post5_link_clicked,
+            post6_link_clicked: taskState.post6_link_clicked,
+            post7_link_clicked: taskState.post7_link_clicked,
+            post8_link_clicked: taskState.post8_link_clicked,
+            post9_link_clicked: taskState.post9_link_clicked,
+            post10_link_clicked: taskState.post10_link_clicked,
+            ...extra
+          },
+          QUALTRICS_TARGET_ORIGIN
+        );
+      } catch (e) {
+        // Ignore if embedded context is unavailable
+      }
+    }
+
+    const stepLabelEl = document.getElementById("stepLabel");
+    const progressValueEl = document.getElementById("progressValue");
+    const avatarEl = document.getElementById("avatar");
+    const authorNameEl = document.getElementById("authorName");
+    const verifiedIconEl = document.getElementById("verifiedIcon");
+    const authorMetaEl = document.getElementById("authorMeta");
+    const postTextEl = document.getElementById("postText");
+    const linkAnchorEl = document.getElementById("linkAnchor");
+    const labelsContainer = document.getElementById("labelsContainer");
+    const nextButton = document.getElementById("nextButton");
+    const mainLayout = document.getElementById("mainLayout");
+    const completeState = document.getElementById("completeState");
+
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalMessageEl = modalBackdrop.querySelector(".modal-message");
+    const decisionButtons = modalBackdrop.querySelectorAll(".decision-option");
+    const continueButton = document.getElementById("continueButton");
+    const verificationStatusEl = document.getElementById("verificationStatus");
+    const verificationBarFillEl = document.getElementById("verificationBarFill");
+
+    function renderLabels() {
+      labelsContainer.innerHTML = "";
+      labels.forEach(label => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "label-option";
+        btn.dataset.id = label.id;
+        btn.innerHTML = `
+          <span>${label.text}</span>
+          <span class="label-tag">${label.tag}</span>
+        `;
+        btn.addEventListener("click", () => {
+          selectedLabel = label.id;
+          Array.from(labelsContainer.children).forEach(c => c.classList.remove("selected"));
+          btn.classList.add("selected");
+          nextButton.disabled = false;
+          taskState['post' + (currentIndex + 1) + '_label'] = label.text;
+          postToQualtrics();
+        });
+        labelsContainer.appendChild(btn);
+      });
+    }
+
+    function renderPost() {
+      const post = posts[currentIndex];
+      stepLabelEl.textContent = `Post ${currentIndex + 1} of ${posts.length}`;
+      const progress = (currentIndex / posts.length) * 100;
+      progressValueEl.style.width = `${progress}%`;
+
+      avatarEl.src = post.avatar;
+      authorNameEl.textContent = post.author;
+      verifiedIconEl.style.display = (currentIndex === 3 || currentIndex === 8) ? "none" : "block";
+      authorMetaEl.textContent = `${post.handle} · ${post.timeAgo}`;
+      postTextEl.textContent = post.text;
+      linkAnchorEl.textContent = post.linkImage;
+      linkAnchorEl.href = post.linkImage;
+
+      selectedLabel = null;
+      nextButton.disabled = true;
+      Array.from(labelsContainer.children).forEach(c => c.classList.remove("selected"));
+
+      if (currentIndex === 3 || currentIndex === 8) {
+        setTimeout(() => {
+          openVerificationModal();
+        }, 1000);
+      }
+    }
+
+    function completeFlow() {
+      mainLayout.style.display = "none";
+      completeState.style.display = "block";
+      progressValueEl.style.width = "100%";
+      stepLabelEl.textContent = "All posts labeled";
+      postToQualtrics({ done: true });
+    }
+
+    function resetVerificationState() {
+      isVerifying = false;
+      hasVerified = false;
+      modalDecision = null;
+      verificationStatusEl.style.display = "none";
+      verificationBarFillEl.style.width = "0%";
+      if (verificationTimer) {
+        clearTimeout(verificationTimer);
+        verificationTimer = null;
+      }
+      decisionButtons.forEach(b => {
+        b.disabled = false;
+        b.classList.remove("primary");
+      });
+      continueButton.disabled = true;
+      continueButton.textContent = "Continue";
+      if (modalMessageEl) {
+        modalMessageEl.textContent = defaultModalMessage;
+      }
+    }
+
+    function openVerificationModal() {
+      resetVerificationState();
+      modalBackdrop.style.display = "flex";
+      modalBackdrop.setAttribute("aria-hidden", "false");
+      continueButton.focus();
+    }
+
+    function closeModal() {
+      modalBackdrop.style.display = "none";
+      modalBackdrop.setAttribute("aria-hidden", "true");
+    }
+
+    decisionButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        modalDecision = btn.dataset.decision;
+        decisionButtons.forEach(b => b.classList.remove("primary"));
+        btn.classList.add("primary");
+        continueButton.disabled = false;
+        if (currentIndex === 3 || currentIndex === 8) {
+          const prefix = currentIndex === 3 ? 'post4' : 'post9';
+          taskState[prefix + '_popup_choice'] = modalDecision;
+          postToQualtrics();
+        }
+      });
+    });
+
+    continueButton.addEventListener("click", () => {
+      if (!modalDecision) {
+        return;
+      }
+
+      const popupPrefix = currentIndex === 3 ? 'post4' : 'post9';
+
+      if (modalDecision === "full" && !hasVerified) {
+        if (isVerifying) {
+          return;
+        }
+        isVerifying = true;
+        taskState[popupPrefix + '_verified'] = false;
+        postToQualtrics();
+        verificationStatusEl.style.display = "block";
+        const durationMs = 20000;
+        verificationBarFillEl.style.transitionDuration = `${durationMs / 1000}s`;
+        requestAnimationFrame(() => {
+          verificationBarFillEl.style.width = "100%";
+        });
+        decisionButtons.forEach(b => {
+          b.disabled = true;
+        });
+        continueButton.disabled = true;
+
+        verificationTimer = setTimeout(() => {
+          isVerifying = false;
+          hasVerified = true;
+          if (modalMessageEl) {
+            modalMessageEl.textContent = "The link has been verified. You can continue.";
+          }
+          taskState[popupPrefix + '_verified'] = true;
+          postToQualtrics();
+          continueButton.disabled = false;
+          continueButton.textContent = "Close";
+        }, durationMs);
+
+        return;
+      }
+
+      if (modalDecision === "open") {
+        const post = posts[currentIndex];
+        const targetUrl = post.linkImage || post.linkUrl;
+        if (targetUrl) {
+          window.open(targetUrl, "_blank", "noopener");
+        }
+        if (currentIndex === 3 || currentIndex === 8) {
+          taskState[popupPrefix + '_popup_choice'] = "open";
+          postToQualtrics();
+        }
+      }
+
+      closeModal();
+    });
+
+    linkAnchorEl.addEventListener("click", () => {
+      const postNumber = currentIndex + 1;
+      taskState[`post${postNumber}_link_clicked`] = true;
+      postToQualtrics();
+    });
+
+    nextButton.addEventListener("click", () => {
+      currentIndex++;
+      if (currentIndex >= posts.length) {
+        completeFlow();
+      } else {
+        renderPost();
+      }
+    });
+
+    renderLabels();
+    renderPost();
+  </script>
+</body>
+</html>
